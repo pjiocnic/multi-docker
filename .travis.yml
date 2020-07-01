@@ -13,7 +13,7 @@ after_success:
   - docker build -t pjoisha/multi-nginx ./nginx
   - docker build -t pjoisha/multi-server ./server
   - docker build -t pjoisha/multi-worker ./worker
-  # Log in to docker hub
+  # Log in to docker hub (make sure to escape "\"" special chars)
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and psuh them to docker hub
   - docker push pjoisha/multi-client
@@ -21,8 +21,3 @@ after_success:
   - docker push pjoisha/multi-server
   - docker push pjoisha/multi-worker
 
-deploy:
-  provider: script
-  script: bash ./deploy.sh
-  on:
-    branch: master
